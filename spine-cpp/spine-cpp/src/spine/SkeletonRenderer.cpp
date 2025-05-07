@@ -137,6 +137,9 @@ static RenderCommand *batchCommands(BlockAllocator &allocator, Vector<RenderComm
 }
 
 RenderCommand *SkeletonRenderer::render(Skeleton &skeleton) {
+	// Simple log to confirm logging is working
+	printf("Rendering skeleton: %s\n", skeleton.getData().getName().buffer());
+	
 	_allocator.compress();
 	_renderCommands.clear();
 
