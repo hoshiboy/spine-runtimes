@@ -207,24 +207,11 @@ RenderCommand *SkeletonRenderer::render(Skeleton &skeleton) {
 			indices = quadIndices;
 			indicesCount = 6;
 			
-			// Debug logging to catch null pointer issues
-			if (regionAttachment->getRegion() == nullptr) {
-				printf("ERROR: Null region in RegionAttachment: Slot '%s', Attachment '%s'\n",
-					slot.getData().getName().buffer(),
-					regionAttachment->getName().buffer());
-				// Skip this attachment to avoid crash
-				continue;
-			}
-			
-			// Check renderer object
-			if (regionAttachment->getRegion()->rendererObject == nullptr) {
-				printf("ERROR: Null rendererObject in RegionAttachment: Slot '%s', Attachment '%s', Region '%s'\n",
-					slot.getData().getName().buffer(),
-					regionAttachment->getName().buffer(),
-					regionAttachment->getRegion()->getName().buffer());
-				// Skip this attachment to avoid crash
-				continue;
-			}
+			// Simple debug logging - just print addresses
+			printf("DEBUG: RegionAttachment=%p, Region=%p, RendererObject=%p\n", 
+				(void*)regionAttachment, 
+				(void*)(regionAttachment->getRegion()),
+				(void*)(regionAttachment->getRegion() ? regionAttachment->getRegion()->rendererObject : nullptr));
 			
 			texture = regionAttachment->getRegion()->rendererObject;
 
@@ -267,24 +254,11 @@ RenderCommand *SkeletonRenderer::render(Skeleton &skeleton) {
 			indices = &mesh->getTriangles();
 			indicesCount = (int32_t) indices->size();
 			
-			// Debug logging to catch null pointer issues
-			if (mesh->getRegion() == nullptr) {
-				printf("ERROR: Null region in MeshAttachment: Slot '%s', Attachment '%s'\n",
-					slot.getData().getName().buffer(),
-					mesh->getName().buffer());
-				// Skip this attachment to avoid crash
-				continue;
-			}
-			
-			// Check renderer object
-			if (mesh->getRegion()->rendererObject == nullptr) {
-				printf("ERROR: Null rendererObject in MeshAttachment: Slot '%s', Attachment '%s', Region '%s'\n",
-					slot.getData().getName().buffer(),
-					mesh->getName().buffer(),
-					mesh->getRegion()->getName().buffer());
-				// Skip this attachment to avoid crash
-				continue;
-			}
+			// Simple debug logging - just print addresses
+			printf("DEBUG: MeshAttachment=%p, Region=%p, RendererObject=%p\n", 
+				(void*)mesh, 
+				(void*)(mesh->getRegion()),
+				(void*)(mesh->getRegion() ? mesh->getRegion()->rendererObject : nullptr));
 			
 			texture = mesh->getRegion()->rendererObject;
 
